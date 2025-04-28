@@ -24,5 +24,14 @@ body {
 }
 
 .card {
-  background-color: var(--input);
+  background-color: var(--header);
+}
+
+.header {
+  background-color: var(--header);
+  color: var(--foreground);
+}
+
+.hide {
+  display: none;
 }
