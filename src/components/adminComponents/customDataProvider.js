@@ -69,7 +69,7 @@ const customDataProvider = {
   getOne: async (resource, params) => {
     try {
       const response = await axios.get(
-        `${apiUrl}/${resource}/findById/${params.id}`
+        `${apiUrl}/${resource}/findOne/${params.id}`
       );
       const data = response.data;
 
@@ -87,7 +87,7 @@ const customDataProvider = {
   },
 
   create: (resource, params) => {
-    const url = `${apiUrl}/${resource}`;
+    const url = `${apiUrl}/${resource}/create`;
     return axios
       .post(url, { ...params.data, _id: params.data.id }) // Map id to _id
       .then((response) => {

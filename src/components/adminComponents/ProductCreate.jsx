@@ -1,17 +1,19 @@
 // ProductCreate.tsx
 import {
+  ArrayInput,
   Create,
   NumberInput,
   SelectInput,
   SimpleForm,
+  SimpleFormIterator,
   TextInput,
 } from "react-admin";
 
 const categories = [
   { id: "Utensil", name: "Utensil" },
   { id: "Plastic", name: "Plastic" },
-  { id: "Clothes", name: "Clothes" },
-  { id: "Shoes", name: "Shoes" },
+  { id: "Clothing", name: "Clothing" },
+  { id: "Shoe", name: "Shoe" },
   { id: "Stationery", name: "Stationery" },
   { id: "Other", name: "Other" },
 ];
@@ -26,26 +28,24 @@ const units = [
 const ProductCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="name" label="Product Name" />
-      <TextInput source="description" label="Description" multiline />
+      <TextInput source="name" />
+      <TextInput multiline source="description" />
+      <SelectInput source="category" choices={categories} />
+      <NumberInput source="price" />
+      <NumberInput source="discount" />
+      <NumberInput source="quantity" />
+      <SelectInput source="unit" choices={units} />
+      <TextInput source="size" />
+      <TextInput source="color" />
+      <TextInput source="material" />
+      <TextInput source="brand" />
 
-      <SelectInput source="category" label="Category" choices={categories} />
-
-      <NumberInput source="price" label="Price" />
-      <NumberInput source="discount" label="Discount (%)" />
-      <NumberInput source="quantity" label="Quantity in Stock" />
-      <SelectInput source="unit" label="Unit" choices={units} />
-
-      {/* Optional fields */}
-      <TextInput source="size" label="Size" />
-      <TextInput source="color" label="Color" />
-      <TextInput source="material" label="Material" />
-      <TextInput source="brand" label="Brand" />
-
-      {/* Custom Attributes as a JSON string */}
-      <TextInput source="customAttributes.capacity" label="Capacity" />
-      <TextInput source="customAttributes.shape" label="Shape" />
-      <TextInput source="customAttributes.weight" label="Weight" />
+      <ArrayInput source="customAttributes">
+        <SimpleFormIterator>
+          <TextInput source="key" label="Attribute Name" />
+          <TextInput source="value" label="Attribute Value" />
+        </SimpleFormIterator>
+      </ArrayInput>
     </SimpleForm>
   </Create>
 );

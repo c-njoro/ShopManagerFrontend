@@ -1,36 +1,56 @@
 // ProductShow.tsx
+import { Box, Typography } from "@mui/material";
 import {
   DateField,
   NumberField,
   Show,
   SimpleShowLayout,
   TextField,
+  useShowContext,
 } from "react-admin";
+
+const CustomAttributes = () => {
+  const { record } = useShowContext();
+
+  if (!record || !record.customAttributes) return null;
+
+  return (
+    <Box mt={2}>
+      <Typography variant="h6">Custom Attributes</Typography>
+      {Object.entries(record.customAttributes).map(([key, value]) => (
+        <Box key={key} display="flex" gap={1}>
+          <Typography variant="body2" fontWeight={600}>
+            {key}:
+          </Typography>
+          <Typography variant="body2">{value}</Typography>
+        </Box>
+      ))}
+    </Box>
+  );
+};
 
 const ProductShow = (props) => (
   <Show {...props}>
     <SimpleShowLayout>
-      <TextField source="name" label="Name" />
-      <TextField source="description" label="Description" />
-      <TextField source="category" label="Category" />
-      <NumberField
-        source="price"
-        label="Price (Ksh)"
-        options={{ style: "currency", currency: "KES" }}
-      />
-      <NumberField source="discount" label="Discount (%)" />
-      <NumberField source="quantity" label="Quantity" />
-      <TextField source="unit" label="Unit" />
-      <TextField source="size" label="Size" />
-      <TextField source="color" label="Color" />
-      <TextField source="material" label="Material" />
-      <TextField source="brand" label="Brand" />
-      {/* Display customAttributes as JSON (optional) */}
-      <TextField source="customAttributes.capacity" label="Capacity" />
-      <TextField source="customAttributes.shape" label="Shape" />
-      <TextField source="customAttributes.weight" label="Weight" />
-      <DateField source="createdAt" label="Created At" />
-      <DateField source="updatedAt" label="Updated At" />
+      <TextField source="id" />
+      <TextField source="name" />
+      <TextField source="description" />
+      <TextField source="category" />
+      <NumberField source="price" />
+      <NumberField source="discount" />
+      <NumberField source="quantity" />
+      <TextField source="unit" />
+      <TextField source="size" />
+      <TextField source="color" />
+      <TextField source="material" />
+      <TextField source="brand" />
+
+      {/* Custom attributes dynamically */}
+      <CustomAttributes />
+
+      {/* Timestamps */}
+      <DateField source="createdAt" />
+      <DateField source="updatedAt" />
     </SimpleShowLayout>
   </Show>
 );

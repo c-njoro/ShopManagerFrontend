@@ -5,7 +5,7 @@
   --foreground: #171717;
   --header: #e8e8e8;
   --header-hovers: #aeabab;
-  --input: #e5e5e5;
+  --input: #dbc8c8;
   --card: #f2f2f2;
 }
 
@@ -14,7 +14,7 @@
   --foreground: #ededed;
   --header: #2f2f2f;
   --header-hovers: #3d3c3c;
-  --input: #292828;
+  --input: #1a1a1a;
   --card: #1a1a1a;
 }
 
@@ -39,6 +39,26 @@ body {
   color: var(--foreground);
   background-color: var(--header-hovers);
   transition: background-color 0.3s, color 0.3s;
+}
+
+.input-field {
+  background-color: var(--input);
+  color: var(--foreground);
+
+  border: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.input-field:focus {
+  outline: none;
+  background-color: var(--input);
+  color: var(--foreground);
+  border: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+.input-field::placeholder {
+  color: var(--foreground);
+  opacity: 0.5;
 }
 
 .hide {

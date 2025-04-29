@@ -33,7 +33,7 @@ const Header = () => {
   }
 
   return (
-    <div className="w-full md:h-full h-[calc(7vh)] flex flex-col  header z-10">
+    <div className="w-full md:h-full h-max flex flex-col  header z-10">
       <div className=" flex md:flex-col flex-row justify-start items-start gap-8 p-4  h-full z-10">
         <div className="logo  w-full overflow-hidden  ">
           <img
@@ -82,7 +82,7 @@ const Header = () => {
           )}
         </div>
 
-        <div className="drop-down md:hidden cursor-pointer mr-8 flex justify-center flex-row items-center gap-8">
+        <div className="drop-down md:hidden cursor-pointer mr-4 flex justify-center flex-row items-center gap-4">
           <ThemeToggle />
           <svg
             xmlns="http://www.w3.org/2000/svg"

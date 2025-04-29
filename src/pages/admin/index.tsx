@@ -26,15 +26,15 @@ const AdminPage = () => {
 
   if (!isLoggedIn) {
     return (
-      <div className="w-screen min-h-[calc(90vh)] flex flex-col justify-center items-center">
-        <h1 className="text-3xl uppercase text-red-500 font-body font-bold">
-          Not logged in
+      <div className="w-full h-screen flex flex-col justify-center items-center gap-8">
+        <h1 className="text-3xl uppercase text-red-500 font-body font-bold tracking-widest">
+          Not logged in the System
         </h1>
         <button
           onClick={() => router.push("/login")}
-          className="w-max h-max font-body text-base bg-black text-white shadow-lg px-5 py-2 rounded-full"
+          className="w-max h-max font-body text-base  input-field shadow-lg px-10 py-2 rounded-full"
         >
-          Log in
+          Log In
         </button>
       </div>
     );
@@ -42,7 +42,7 @@ const AdminPage = () => {
 
   if (user.role == "admin") {
     return (
-      <div className="w-screen min-h-[calc(90vh)] flex flex-col justify-center items-center">
+      <div className="w-full h-screen flex flex-col justify-center items-center">
         <h1 className="text-7xl uppercase text-red-500 font-body font-bold tracking-widest">
           !!! Not Unauthorized !!!
         </h1>

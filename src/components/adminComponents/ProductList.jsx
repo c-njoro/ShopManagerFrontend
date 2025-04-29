@@ -2,6 +2,8 @@
 import { useMediaQuery } from "@mui/material";
 import {
   Datagrid,
+  DeleteButton,
+  EditButton,
   List,
   NumberField,
   SelectInput,
@@ -13,14 +15,14 @@ import {
 const categoryFilters = [
   { id: "Utensil", name: "Utensil" },
   { id: "Plastic", name: "Plastic" },
-  { id: "Clothes", name: "Clothes" },
-  { id: "Shoes", name: "Shoes" },
+  { id: "Clothing", name: "Clothing" },
+  { id: "Shoe", name: "Shoe" },
   { id: "Stationery", name: "Stationery" },
   { id: "Other", name: "Other" },
 ];
 
 const ProductFilter = [
-  <TextInput label="Search by name" source="q" alwaysOn />,
+  <TextInput label="Search by name" source="name" alwaysOn />,
   <SelectInput label="Category" source="category" choices={categoryFilters} />,
 ];
 
@@ -36,7 +38,7 @@ const ProductList = (props) => {
           tertiaryText={(record) => `${record.quantity} ${record.unit}`}
         />
       ) : (
-        <Datagrid rowClick="edit">
+        <Datagrid rowClick="show">
           <TextField source="name" label="Name" />
           <TextField source="category" label="Category" />
           <NumberField
@@ -48,6 +50,8 @@ const ProductList = (props) => {
           <NumberField source="quantity" label="Quantity" />
           <TextField source="unit" label="Unit" />
           <TextField source="brand" label="Brand" />
+          <EditButton />
+          <DeleteButton />
         </Datagrid>
       )}
     </List>
