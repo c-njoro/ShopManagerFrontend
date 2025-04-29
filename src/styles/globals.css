@@ -3,7 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --header: #f8f8f8;
+  --header: #e8e8e8;
+  --header-hovers: #aeabab;
   --input: #e5e5e5;
   --card: #f2f2f2;
 }
@@ -11,8 +12,9 @@
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --header: #121212;
-  --input: #1e1e1e;
+  --header: #2f2f2f;
+  --header-hovers: #3d3c3c;
+  --input: #292828;
   --card: #1a1a1a;
 }
 
@@ -30,6 +32,13 @@ body {
 .header {
   background-color: var(--header);
   color: var(--foreground);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.direction:hover {
+  color: var(--foreground);
+  background-color: var(--header-hovers);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .hide {

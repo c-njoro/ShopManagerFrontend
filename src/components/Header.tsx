@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "@/context/AuthContext";
-import Image from "next/image";
+import { Home, LogIn, LogOut, User, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import ThemeToggle from "./ThemeToggle";
 const Header = () => {
   const router = useRouter();
   const [menuClass, setMenuClass] = useState("hide");
-  const { isLoading, isLoggedIn, user } = useAuth();
+  const { isLoading, isLoggedIn, user, logout } = useAuth();
 
   const toggleDrop = () => {
     if (menuClass === "hide") {
@@ -24,37 +24,65 @@ const Header = () => {
     setMenuClass("hide");
   }, [router.asPath]);
 
-  return (
-    <div className="w-screen h-[calc(7vh)] flex flex-col  header">
-      <div className=" flex flex-row justify-between p-4 items-center w-[calc(100vw)] h-[calc(7vh)] fixed z-10">
-        <div className="logo  p-0 w-1/5 min-w-52 h-full">
-          <Image
-            src={`https://images.pexels.com/photos/2763246/pexels-photo-2763246.jpeg`}
-            alt="shop logo"
-            width={200}
-            height={200}
-            className="w-full h-full object-cover"
-          ></Image>
-        </div>
-        <div className="links hidden md:flex flex-row gap-8 items-center font-body pr-8">
-          <Link href="/" className="link   px-4 py-1 ">
-            Home
-          </Link>
+  if (isLoading) {
+    return (
+      <div className="w-full min-h-screen flex flex-col justify-center items-center">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
 
-          {isLoggedIn ? (
-            <p>Hello, {user.name}</p>
-          ) : (
-            <Link href="/login" className="link-sign">
-              Login
+  return (
+    <div className="w-full md:h-full h-[calc(7vh)] flex flex-col  header z-10">
+      <div className=" flex md:flex-col flex-row justify-start items-start gap-8 p-4  h-full z-10">
+        <div className="logo  w-full overflow-hidden  ">
+          <img
+            src="https://images.pexels.com/photos/2763246/pexels-photo-2763246.jpeg"
+            alt="company logo"
+            className="md:w-full md:h-full w-50 h-10 object-cover rounded-lg shadow-md "
+          />
+        </div>
+        <div className="w-full links hidden md:flex md:flex-col flex-row gap-8 items-center font-body ">
+          {isLoggedIn && (
+            <Link
+              href="/"
+              className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all "
+            >
+              <User className="h-5 w-5 " />
+              <p>{user.name}</p>
             </Link>
           )}
+
+          <Link
+            href="/"
+            className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all"
+          >
+            <Home className="h-5 w-5 " />
+            <p>Home</p>
+          </Link>
+
           <ThemeToggle />
+
+          {isLoggedIn ? (
+            <button
+              className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all"
+              onClick={logout}
+            >
+              <LogOut className="h-5 w-5 " />
+              <p>Log Out</p>
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all"
+            >
+              <LogIn className="h-5 w-5 " />
+              <p>Login</p>
+            </Link>
+          )}
         </div>
 
-        <div
-          className="drop-down md:hidden cursor-pointer mr-8 flex justify-center flex-row items-center gap-8"
-          onClick={toggleDrop}
-        >
+        <div className="drop-down md:hidden cursor-pointer mr-8 flex justify-center flex-row items-center gap-8">
           <ThemeToggle />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +90,8 @@ const Header = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="size-8"
+            className="size-10"
+            onClick={toggleDrop}
           >
             <path
               strokeLinecap="round"
@@ -75,27 +104,52 @@ const Header = () => {
 
       <div className={`${menuClass}`}>
         <div
-          className="w-screen h-[calc(100vh)]  grid lg:grid-cols-2 grid-cols-1 text-foreground header"
+          className="w-screen h-max  grid lg:grid-cols-2 grid-cols-1 text-foreground header"
           id="menu"
         >
-          <div className="w-full h-full flex flex-col justify-center items-center gap-8 relative">
+          <div className="w-full h-full flex flex-col justify-center ">
+            {isLoggedIn && (
+              <Link
+                href="/"
+                className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all "
+              >
+                <User className="h-5 w-5 " />
+                <p>{user.name}</p>
+              </Link>
+            )}
+
             <Link
               href="/"
-              className="link font-body font-semibold tracking-wide px-4 py-1  w-full flex flex-row justify-center items-center"
+              className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all"
             >
-              Home
+              <Home className="h-5 w-5 " />
+              <p>Home</p>
             </Link>
 
             {isLoggedIn ? (
-              <p>Hello, {user.name}</p>
+              <button
+                className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all"
+                onClick={logout}
+              >
+                <LogOut className="h-5 w-5 " />
+                <p>Log Out</p>
+              </button>
             ) : (
               <Link
-                href="/sign"
-                className="link-sign link text-orange-950 font-body font-semibold tracking-wide px-4 py-1  w-full flex flex-row justify-center items-center"
+                href="/login"
+                className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all"
               >
-                Login
+                <LogIn className="h-5 w-5 " />
+                <p>Login</p>
               </Link>
             )}
+            <button
+              className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all"
+              onClick={toggleDrop}
+            >
+              <X className="h-5 w-5 " />
+              <p>Close</p>
+            </button>
           </div>
         </div>
       </div>

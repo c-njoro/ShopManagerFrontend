@@ -5,7 +5,7 @@ const MainPage = () => {
 
   if (isLoading) {
     return (
-      <div className="w-screen h-screen flex flex-col justify-centr items-center">
+      <div className="w-full min-h-screen flex flex-col justify-center items-center">
         <h1>Loading...</h1>
       </div>
     );

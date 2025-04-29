@@ -41,13 +41,19 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-md bg-card hover:bg-input transition-colors"
+      className="w-full transition-colors"
       aria-label="Toggle theme"
     >
       {isDarkTheme ? (
-        <Sun className="h-5 w-5 text-yellow-500" />
+        <div className="w-full h-max flex flex-row gap-4 items-center direction py-3 px-2 rounded-sm">
+          <Sun className="h-5 w-5 text-yellow-500" />
+          <p className="hidden md:flex">Theme</p>
+        </div>
       ) : (
-        <Moon className="h-5 w-5 text-blue-500" />
+        <div className="w-full h-max flex flex-row gap-4 items-center direction py-3 px-2 rounded-sm">
+          <Moon className="h-5 w-5 text-blue-500" />
+          <p className="hidden md:flex">Theme</p>
+        </div>
       )}
     </button>
   );

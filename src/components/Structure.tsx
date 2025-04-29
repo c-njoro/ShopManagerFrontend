@@ -7,11 +7,13 @@ interface StructureProps {
 
 const Structure = ({ children }: StructureProps) => {
   return (
-    <div className="w-screen min-h-screen relative overflow-hidden h-max border-b border-gray-200">
-      <div className="fixed top-0 left-0 z-50 sm:bg-transparent ">
+    <div className="w-screen min-h-screen  overflow-hidden md:grid md:grid-cols-12 flex flex-col">
+      <div className=" col-span-3 lg:col-span-2 h-full w-full fixed md:relative z-10">
         <Header />
       </div>
-      <div className="w-full pt-[calc(7vh)]">{children}</div>
+      <div className="w-full pt-[calc(7vh)] md:pt-0 col-span-9 lg:col-span-10">
+        {children}
+      </div>
     </div>
   );
 };
