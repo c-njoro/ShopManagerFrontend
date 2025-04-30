@@ -1,39 +1,13 @@
-import useProducts from "@/hooks/productsHook";
+import ProductListComponent from "@/components/ProductsListComponent";
 
-const NewOrder = () => {
-  const {
-    data: products,
-    isLoading: productsLoading,
-    isError: productsError,
-    refetch: refetchProducts,
-  } = useProducts();
-
-  if (productsLoading) {
-    return (
-      <div className="w-full min-h-screen flex flex-col justify-center items-center">
-        <h1>Loading products...</h1>
-      </div>
-    );
-  }
-
-  if (productsError) {
-    return (
-      <div className="w-full min-h-screen flex flex-col justify-center items-center">
-        <h1>Error loading products</h1>
-        <button>Fetch again</button>
-      </div>
-    );
-  }
-
+const NewOrderPage = () => {
   return (
     <div>
-      <h1>Make new order page</h1>
-
-      {products?.map((product) => (
-        <div key={product._id}>{product.name}</div>
-      ))}
+      <div>
+        <ProductListComponent />
+      </div>
     </div>
   );
 };
 
-export default NewOrder;
+export default NewOrderPage;
