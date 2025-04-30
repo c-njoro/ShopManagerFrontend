@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "@/context/AuthContext";
-import { Home, LogIn, LogOut, User, X } from "lucide-react";
+import { Home, LogIn, LogOut, ShoppingCart, User, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -50,6 +50,16 @@ const Header = () => {
             >
               <User className="h-5 w-5 " />
               <p>{user.name}</p>
+            </Link>
+          )}
+
+          {isLoggedIn && (
+            <Link
+              href="/new-order"
+              className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all "
+            >
+              <ShoppingCart className="h-5 w-5 " />
+              <p>Make Order</p>
             </Link>
           )}
 
