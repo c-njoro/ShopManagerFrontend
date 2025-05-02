@@ -11,7 +11,7 @@ const Structure = ({ children }: StructureProps) => {
       <div className=" col-span-3 lg:col-span-2 h-full w-full fixed md:relative z-10">
         <Header />
       </div>
-      <div className="w-full pt-[calc(7vh)] md:pt-0 col-span-9 lg:col-span-10">
+      <div className="w-full pt-[calc(10vh)] md:pt-0 col-span-9 lg:col-span-10">
         {children}
       </div>
     </div>

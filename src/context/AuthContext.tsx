@@ -60,6 +60,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(data.user);
       setIsLoggedIn(true);
     } catch (error) {
+      console.log("Login failed:", error);
       throw error;
     }
   };

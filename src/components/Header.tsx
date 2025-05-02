@@ -37,12 +37,20 @@ const Header = () => {
       <div className=" flex md:flex-col flex-row justify-start items-start gap-8 p-4  h-full z-10">
         <div className="logo  w-full overflow-hidden  ">
           <img
-            src="https://images.pexels.com/photos/2763246/pexels-photo-2763246.jpeg"
+            src="/images/echodot.jpg"
             alt="company logo"
             className="md:w-full md:h-full w-50 h-10 object-cover rounded-lg shadow-md "
           />
         </div>
         <div className="w-full links hidden md:flex md:flex-col flex-row gap-8 items-center font-body ">
+          <Link
+            href="/"
+            className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all"
+          >
+            <Home className="h-5 w-5 " />
+            <p>Home</p>
+          </Link>
+
           {isLoggedIn && (
             <Link
               href="/"
@@ -63,20 +71,15 @@ const Header = () => {
             </Link>
           )}
 
-          <Link
-            href="/"
-            className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all"
-          >
-            <Home className="h-5 w-5 " />
-            <p>Home</p>
-          </Link>
-
           <ThemeToggle />
 
           {isLoggedIn ? (
             <button
               className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all"
-              onClick={logout}
+              onClick={() => {
+                logout();
+                router.push("/");
+              }}
             >
               <LogOut className="h-5 w-5 " />
               <p>Log Out</p>

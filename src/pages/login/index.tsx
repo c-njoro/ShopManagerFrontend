@@ -9,6 +9,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+  const [message, setMessage] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -18,17 +19,24 @@ const LoginPage = () => {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    login(formData.email, formData.password)
-      .then(() => {
-        console.log("Login successful");
-        router.push("/");
-      })
-      .catch((error) => {
-        console.error("Login failed:", error);
-      });
-    console.log("Login data:", formData);
+    setMessage("");
+
+    if (!formData.email || !formData.password) {
+      setMessage("Fill out the form correctly");
+      return;
+    }
+
+    try {
+      await login(formData.email, formData.password);
+      console.log("Login successful");
+      router.push("/");
+      setMessage("");
+    } catch (error: any) {
+      console.error("Login failed:", error);
+      setMessage("Login failed, please try again");
+    }
   };
 
   return (
@@ -36,7 +44,7 @@ const LoginPage = () => {
       <h1 className="font-bold tracking-wider text-2xl">Login</h1>
       <form
         onSubmit={handleSubmit}
-        className="card w-1/3 h-1/3 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center gap-5"
+        className="card w-2/3 h-1/3 rounded-lg shadow-lg p-4 flex flex-col justify-center items-center gap-5"
       >
         <div className="w-full grid grid-cols-4 place-items-end gap-4 items-center">
           <label
@@ -77,6 +85,14 @@ const LoginPage = () => {
           Login
         </button>
       </form>
+
+      {message.length > 0 && (
+        <div className="w-full flex flex-row justify-center items-center">
+          <p className="uppercase text-sm tracking-widest text-red-500">
+            {message}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
