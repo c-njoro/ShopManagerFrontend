@@ -9,6 +9,13 @@ interface AuthContextType {
   user: any | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  orderIds: {
+    id: string;
+    count: number;
+  }[];
+  setOrderIds: React.Dispatch<
+    React.SetStateAction<{ id: string; count: number }[]>
+  >;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -17,6 +24,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<any | null>(null);
+  const [orderIds, setOrderIds] = useState<{ id: string; count: number }[]>([]);
 
   useEffect(() => {
     checkLoginStatus();
@@ -71,6 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.removeItem("userData");
       setUser(null);
       setIsLoggedIn(false);
+      setOrderIds([]);
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -78,7 +87,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ isLoading, isLoggedIn, user, login, logout }}
+      value={{
+        isLoading,
+        isLoggedIn,
+        user,
+        login,
+        logout,
+        orderIds,
+        setOrderIds,
+      }}
     >
       {children}
     </AuthContext.Provider>

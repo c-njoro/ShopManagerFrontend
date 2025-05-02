@@ -1,3 +1,4 @@
+import { useAuth } from "@/context/AuthContext";
 import useProducts from "@/hooks/productsHook";
 import { Product } from "@/types/Product";
 import Image from "next/image";
@@ -11,6 +12,7 @@ const ProductListComponent = () => {
     refetch: refetchProducts,
   } = useProducts();
   const [productsData, setProductsData] = useState<Product[]>([]);
+  const { orderIds, setOrderIds } = useAuth();
 
   useEffect(() => {
     if (products) {
@@ -65,6 +67,16 @@ const ProductListComponent = () => {
       message?.classList.remove("hide");
       setProductsData(products || []);
     }
+  };
+
+  const addToOrder = (productId: string) => {
+    const exists = orderIds.find((id) => id.id === productId);
+    if (exists) {
+      console.log("Product already in order");
+      return;
+    }
+
+    setOrderIds((prev) => [...prev, { id: productId, count: 1 }]);
   };
 
   if (productsLoading) {
@@ -171,7 +183,10 @@ const ProductListComponent = () => {
                       Color: {product.color}
                     </p>
                   )}
-                  <button className="input-field w-full h-max flex flex-col justify-center items-center text-xs uppercase tracking-widest py-1 rounded-full cursor-pointer">
+                  <button
+                    onClick={() => addToOrder(product._id)}
+                    className="input-field w-full h-max flex flex-col justify-center items-center text-xs uppercase tracking-widest py-1 rounded-full cursor-pointer"
+                  >
                     Add to Order
                   </button>
                 </div>
