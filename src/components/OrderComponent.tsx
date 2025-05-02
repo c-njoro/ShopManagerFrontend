@@ -9,7 +9,6 @@ interface ConfirmedProducts {
   productName: string;
   quantity: number;
   unitPrice: number;
-  totalPrice: number;
 }
 
 const OrderComponent = () => {
@@ -27,8 +26,11 @@ const OrderComponent = () => {
     ConfirmedProducts[]
   >([]);
 
-  const [customerInfo, setCustomerInfo] = useState({
-    phone: 0,
+  const [customerInfo, setCustomerInfo] = useState<{
+    phone: string;
+    name: string;
+  }>({
+    phone: "",
     name: "",
   });
 
@@ -121,7 +123,6 @@ const OrderComponent = () => {
         productName: product.item.name,
         quantity: product.count,
         unitPrice: product.item.price,
-        totalPrice: product.item.price * product.count,
       };
 
       toSave.push(current);
@@ -134,20 +135,42 @@ const OrderComponent = () => {
     e.preventDefault();
 
     console.log("We want to process order now");
-    console.log("Customer: ", customerInfo);
+
+    // Convert phone to a number
+    const phoneAsNumber = customerInfo.phone
+      ? parseInt(customerInfo.phone, 10)
+      : null;
+
+    if (!phoneAsNumber || isNaN(phoneAsNumber)) {
+      console.log("Invalid phone number");
+      return;
+    }
+
+    const finalCustomerInfo = {
+      ...customerInfo,
+      phone: phoneAsNumber, // Ensure phone is submitted as a number
+    };
+
+    console.log("Customer: ", finalCustomerInfo);
     console.log("Products: ", productsConfirmed);
 
     try {
-      const response = await axios.post(`${process.env.ORDERS_URL}/create`, {
-        products: productsConfirmed,
-        seller: {
-          id: user._id,
-          name: user.name,
-        },
-        customer: customerInfo,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_FRONTEND_URL}/api/submitOrder`,
+        {
+          products: productsConfirmed,
+          seller: {
+            id: user._id,
+            name: user.name,
+          },
+          customer: finalCustomerInfo,
+        }
+      );
 
       console.log("Order created successfully: ", response.data);
+      setProductsConfirmed([]);
+      setOrderIds([]);
+      setCustomerInfo({ phone: "", name: "" });
     } catch (error) {
       console.log("There was  error in creating order: ", error);
     }
