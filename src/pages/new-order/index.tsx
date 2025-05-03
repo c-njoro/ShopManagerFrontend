@@ -22,11 +22,11 @@ const NewOrderPage = () => {
   }
 
   return (
-    <div className="w-full h-screen grid md:grid-cols-3 grid-cols-2">
-      <div className="md:col-span-2 w-full overflow-y-scroll scroll-smooth thin-scrollbar">
+    <div className="w-full h-screen grid md:grid-cols-3 grid-cols-2 ">
+      <div className="md:col-span-2 w-full overflow-y-scroll scroll-smooth scrollbar-none">
         <ProductListComponent />
       </div>
-      <div className="col-span-1 w-full h-full">
+      <div className="col-span-1 w-full h-full overflow-y-scroll scroll-smooth scrollbar-none border-l border-gray-200 dark:border-gray-900">
         <OrderComponent />
       </div>
     </div>

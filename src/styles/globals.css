@@ -65,22 +65,11 @@ body {
   display: none;
 }
 
-/* globals.css */
-.thin-scrollbar {
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #cbd5e0 #f7fafc; /* thumb and track colors */
+.scrollbar-none {
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For IE and Edge */
 }
 
-/* WebKit (Chrome, Edge, Safari) */
-.thin-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-
-.thin-scrollbar::-webkit-scrollbar-track {
-  background: var(--foreground);
-}
-
-.thin-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--foreground);
-  border-radius: 4px;
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
 }

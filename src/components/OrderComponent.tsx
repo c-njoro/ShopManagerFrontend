@@ -2,6 +2,7 @@ import { useAuth } from "@/context/AuthContext";
 import useProducts from "@/hooks/productsHook";
 import { ProductInOrder } from "@/types/ProductInOrder";
 import axios from "axios";
+import { CheckCheck, Minus, Plus, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface ConfirmedProducts {
@@ -202,6 +203,8 @@ const OrderComponent = () => {
           }
         );
       });
+
+      refetchProducts();
     } catch (error) {
       console.log(
         "Error updating stock of products during order submission. ",
@@ -212,68 +215,119 @@ const OrderComponent = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full h-screen flex flex-col justify-center items-center">
+      <div className="w-full md:h-screen h-[calc(90vh)] flex flex-col justify-center items-center">
         <p>Loading...</p>
       </div>
     );
   }
   if (!isLoggedIn) {
     return (
-      <div className="w-full h-screen flex flex-col justify-center items-center">
+      <div className="w-full md:h-screen h-[calc(90vh)] flex flex-col justify-center items-center">
         <p>You are not logged in, log in to the system first.</p>
       </div>
     );
   }
   if (orderIds.length === 0) {
     return (
-      <div className="w-full h-screen flex flex-col justify-center items-center">
-        <p>You have not selected any products yet.</p>
+      <div className="w-full md:h-screen h-[calc(90vh)] flex flex-col justify-start items-center">
+        <div className="w-full flex flex-col justify-center items-center h-max card p-2 ">
+          <h1 className="uppercase font-semibold text-xl tracking-widest">
+            Order In Making
+          </h1>
+        </div>
+
+        <p className="mt-8">You have not selected any products.</p>
       </div>
     );
   }
 
   if (productsError) {
     return (
-      <div className="w-full h-screen flex flex-col justify-center items-center">
+      <div className="w-full md:h-screen h-[calc(90vh)] flex flex-col justify-center items-center">
         <p>Failed to load products.</p>
       </div>
     );
   }
   if (productsLoading) {
     return (
-      <div className="w-full h-screen flex flex-col justify-center items-center">
+      <div className="w-full md:h-screen h-[calc(90vh)] flex flex-col justify-center items-center">
         <p>Loading products...</p>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold">Order Summary</h1>
-      <div className="mt-4">
+    <div className="w-full h-max flex flex-col justify-start items-center">
+      <div className="w-full flex flex-col justify-center items-center h-max card p-2 ">
+        <h1 className="uppercase font-semibold text-xl tracking-widest">
+          Order In Making
+        </h1>
+      </div>
+      <div className=" w-full h-max flex flex-col justify-start items-start p-2 gap-3">
         {orderProducts.map((product) => (
-          <div key={product.item._id} className="mb-4">
-            <h2 className="text-xl">{product.item.name}</h2>
-            <p>Count: {product.count}</p>
-            <p>Price: Ksh. {product.item.price}</p>
-            <p>Total: Ksh. {product.count * product.item.price}</p>
-            <button onClick={() => increaseCount(product.item._id)}>ADD</button>
-            <button onClick={() => decreaseCount(product.item._id)}>
-              reduce
-            </button>
-            <button onClick={() => removeProduct(product.item._id)}>
-              remove
-            </button>
+          <div
+            key={product.item._id}
+            className="card w-full h-max flex flex-col justify-start items-start rounded-md p-2 gap-2"
+          >
+            <h2 className="font-semibold text-sm tracking-wider">
+              {product.item.name}
+            </h2>
+            <div className="w-full h-max flex flex-row justify-between items-center">
+              <p className="text-sm font-extralight tracking-wider">
+                @Ksh. {product.item.price}
+              </p>
+              <p className="text-sm font-extralight tracking-wider">
+                Total: Ksh {product.count * product.item.price}
+              </p>
+            </div>
+
+            <div className="w-full h-max flex flex-row justify-between items-center ">
+              <div className="w-max grid grid-cols-3 place-items-center gap-4">
+                <button
+                  onClick={() => decreaseCount(product.item._id)}
+                  className="p-1 border-orange-800 border rounded-full"
+                >
+                  <Minus className="text-orange-500 w-4 h-4" />
+                </button>
+                <p className="p-1 px-3 header rounded-md shadow-md">
+                  {product.count}
+                </p>
+                <button
+                  onClick={() => increaseCount(product.item._id)}
+                  className="p-1 border-green-800 border rounded-full"
+                >
+                  <Plus className="text-green-500 w-4 h-4" />
+                </button>
+              </div>
+
+              <button
+                onClick={() => removeProduct(product.item._id)}
+                className="w-max flex flex-row justify-center items-center gap-2 p-1 px-3"
+              >
+                <Trash2 className="text-red-500 w-5 h-5" />
+              </button>
+            </div>
           </div>
         ))}
       </div>
 
-      <p>Totals: {orderTotal}</p>
+      <div className="w-full h-max flex flex-row justify-end items-center p-2">
+        <p className="tracking-widest font-semibold text-sm text-green-600">
+          Order Totals: Ksh {orderTotal}
+        </p>
+      </div>
+
       {productsConfirmed.length > 0 ? (
-        <div>
-          <form action="" onSubmit={processOrder}>
-            <div>
-              <label htmlFor="phone">Phone Number:</label>
+        <div className="w-full h-max p-2">
+          <form
+            action=""
+            onSubmit={processOrder}
+            className="w-full h-max flex flex-col justify-start items-start gap-2 p-2  rounded-md"
+          >
+            <h1 className="w-full h-max p-2 flex flex-row justify-center items-center text-xl">
+              Customer Info
+            </h1>
+            <div className="w-full h-max">
               <input
                 type="text"
                 name="phone"
@@ -282,19 +336,20 @@ const OrderComponent = () => {
                 value={customerInfo.phone}
                 pattern="^(07|01)[0-9]{8}$"
                 title="Phone number must start with '07' or '01' and be 10 digits long"
-                className="border px-2 py-1 rounded"
+                className="input-field col-span-3 w-full h-max py-2 px-3 rounded-full text-sm"
+                placeholder="Enter Customer Phone Number"
                 onChange={handleCustomerInput}
               />
             </div>
-            <div>
-              <label htmlFor="name">Name:</label>
+            <div className="w-full h-max">
               <input
+                className="input-field col-span-3 w-full h-max py-2 px-3 rounded-full text-sm"
+                placeholder="Enter Customer Name"
                 type="text"
                 name="name"
                 id="name"
                 value={customerInfo.name}
                 required
-                className="border px-2 py-1 rounded"
                 onChange={handleCustomerInput}
               />
             </div>
@@ -302,16 +357,29 @@ const OrderComponent = () => {
               type="submit"
               name="submit"
               value={`Process Order Now`}
-              className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
+              className="bg-blue-500 text-white px-4 py-2 w-full h-max rounded-full shadow-lg"
             />
           </form>
         </div>
       ) : (
-        <button onClick={confirmProducts}>Confirm Item(s)</button>
+        <button
+          onClick={confirmProducts}
+          className="w-4/5 h-max py-2 flex flex-row justify-center items-center gap-4 p-1 px-3 bg-blue-500 rounded-full mt-3 text-white"
+        >
+          <CheckCheck className="h-6 w-6" />
+          <p className="text-sm uppercase tracking-wider">Confirm Items</p>
+        </button>
       )}
-      <button onClick={clearOrder}>Clear order</button>
+
+      <button
+        onClick={clearOrder}
+        className="w-4/5 h-max py-2 flex flex-row justify-center items-center gap-4 p-1 px-3 bg-red-600 rounded-full mt-3 text-white"
+      >
+        <X className="h-6 w-6" />
+        <p className="text-sm uppercase tracking-wider">Cancel Order</p>
+      </button>
     </div>
   );
 };
-
+// Export the component as default
 export default OrderComponent;
