@@ -3,11 +3,11 @@ import {
   ChipField,
   Datagrid,
   DateField,
+  DateInput,
   DeleteButton,
   Filter,
   List,
   Pagination,
-  SelectInput,
   SingleFieldList,
   TextField,
   TextInput,
@@ -19,28 +19,12 @@ const ProductPagination = (props) => (
 
 const OrderFilter = (props) => (
   <Filter {...props}>
-    <TextInput label="Search by tracking id" source="trackingNumber" alwaysOn />
-    <SelectInput
-      label="Order Status"
-      source="orderStatus"
-      choices={[
-        { id: "pending", name: "pending" },
-        { id: "processing", name: "processing" },
-        { id: "shipping", name: "shipping" },
-        { id: "shipped", name: "shipped" },
-        { id: "delivered", name: "delivered" },
-        { id: "cancelled", name: "cancelled" },
-        { id: "returned", name: "returned" },
-      ]}
-    />
-    <SelectInput
-      label="Payment Status"
-      source="paymentStatus"
-      choices={[
-        { id: "pending", name: "pending" },
-        { id: "paid", name: "paid" },
-      ]}
-    />
+    {/* Search by seller name */}
+    <TextInput label="Search by seller" source="sellerName" alwaysOn />
+
+    {/* Filter by date range */}
+    <DateInput label="Start Date" source="orderedAt_gte" />
+    <DateInput label="End Date" source="orderedAt_lte" />
   </Filter>
 );
 
@@ -53,20 +37,21 @@ const OrderList = (props) => {
       filters={<OrderFilter />}
     >
       <Datagrid>
-        <TextField source="id" />
-
-        <TextField source="totalAmount" />
-
-        <TextField source="seller.name" label="Seller Name" />
-
-        <DateField source="orderedAt" label="Order Date" />
-
         <ArrayField source="products">
           <SingleFieldList>
             <ChipField source="productName" />
             <ChipField source="quantity" />
           </SingleFieldList>
         </ArrayField>
+
+        <TextField source="totalAmount" />
+
+        <TextField source="seller.name" label="Seller Name" />
+        <TextField source="customer.name" label="Customer Name" />
+        <TextField source="customer.phone" label="Customer Number" />
+
+        <DateField source="orderedAt" label="Order Date" />
+
         <DeleteButton />
       </Datagrid>
     </List>

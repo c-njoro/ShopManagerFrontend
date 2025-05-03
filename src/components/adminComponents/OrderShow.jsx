@@ -13,6 +13,8 @@ const OrderShow = (props) => (
     <SimpleShowLayout>
       <TextField source="id" />
       <TextField source="seller.name" label="Sellers Name" />
+      <TextField source="customer.name" label="Customers Name" />
+      <TextField source="customer.phone" label="Customers Number" />
       <ArrayField source="products">
         <SingleFieldList>
           <TextField source="productName" label="Name" />

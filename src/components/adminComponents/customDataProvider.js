@@ -10,9 +10,10 @@ const customDataProvider = {
       stock,
       category,
       role,
-      orderStatus,
-      paymentStatus,
-      trackingNumber,
+      orderedAt,
+      orderedAt_gte,
+      orderedAt_lte,
+      sellerName,
     } = params.filter;
     let query = `${apiUrl}/${resource}?`;
 
@@ -31,14 +32,17 @@ const customDataProvider = {
     if (category) {
       query += `category=${category}&`;
     }
-    if (orderStatus) {
-      query += `orderStatus=${orderStatus}&`;
+    if (orderedAt) {
+      query += `orderedAt=${orderedAt}&`;
     }
-    if (paymentStatus) {
-      query += `paymentStatus=${paymentStatus}&`;
+    if (orderedAt_gte) {
+      query += `orderedAt_gte=${orderedAt_gte}&`;
     }
-    if (trackingNumber) {
-      query += `trackingNumber=${trackingNumber}&`;
+    if (orderedAt_lte) {
+      query += `orderedAt_lte=${orderedAt_lte}&`;
+    }
+    if (sellerName) {
+      query += `sellerName=${sellerName}&`;
     }
 
     return axios
