@@ -167,7 +167,12 @@ const OrderComponent = () => {
         }
       );
 
-      console.log("Order created successfully: ", response.data);
+      console.log("Order created successfully: Initiating stock update");
+
+      updateStock();
+      console.log("Stock updated successfully");
+      refetchProducts();
+
       setProductsConfirmed([]);
       setOrderIds([]);
       setCustomerInfo({ phone: "", name: "" });
@@ -184,6 +189,25 @@ const OrderComponent = () => {
       ...previousState,
       [name]: value,
     }));
+  };
+
+  const updateStock = async () => {
+    try {
+      orderProducts.forEach(async (product) => {
+        const response = await axios.put(
+          `${process.env.NEXT_PUBLIC_BASE_FRONTEND_URL}/api/updateStock`,
+          {
+            productId: product.item._id,
+            newStock: product.item.quantity - product.count,
+          }
+        );
+      });
+    } catch (error) {
+      console.log(
+        "Error updating stock of products during order submission. ",
+        error
+      );
+    }
   };
 
   if (isLoading) {

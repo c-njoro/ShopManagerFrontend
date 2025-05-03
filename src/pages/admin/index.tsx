@@ -26,7 +26,7 @@ const AdminPage = () => {
 
   if (!isLoggedIn) {
     return (
-      <div className="w-full h-screen flex flex-col justify-center items-center gap-8">
+      <div className="w-full md:h-screen h-[calc(90vh)] flex flex-col justify-center items-center gap-8">
         <h1 className="text-3xl uppercase text-red-500 font-body font-bold tracking-widest">
           Not logged in the System
         </h1>

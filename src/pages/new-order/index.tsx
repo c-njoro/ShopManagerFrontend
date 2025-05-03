@@ -7,7 +7,7 @@ const NewOrderPage = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full h-screen flex flex-col justify-center items-center">
+      <div className="w-full h-[calc(90vh)] md:h-screen flex flex-col justify-center items-center">
         <p>Loading...</p>
       </div>
     );

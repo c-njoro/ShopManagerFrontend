@@ -33,7 +33,7 @@ const Header = () => {
   }
 
   return (
-    <div className="w-full md:h-full h-max flex flex-col  header z-10">
+    <div className="w-full md:h-full h-[calc(10vh)] flex flex-col  header z-100">
       <div className=" flex md:flex-col flex-row justify-start items-start gap-8 p-4  h-full z-10">
         <div className="logo  w-full overflow-hidden  ">
           <img
