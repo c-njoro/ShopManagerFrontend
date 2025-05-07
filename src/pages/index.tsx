@@ -1,7 +1,8 @@
+import ProductSearchComponent from "@/components/ProductsSearchComponent";
 import { useAuth } from "@/context/AuthContext";
 
 const MainPage = () => {
-  const { isLoading, isLoggedIn, user, logout } = useAuth();
+  const { isLoading } = useAuth();
 
   if (isLoading) {
     return (
@@ -12,8 +13,8 @@ const MainPage = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-max min-h-[calc(93vh)] ">
-      <h1 className="font-bold text-3xl">Main Page</h1>
+    <div className="w-full h-max">
+      <ProductSearchComponent />
     </div>
   );
 };

@@ -40,7 +40,7 @@ const AdminPage = () => {
     );
   }
 
-  if (user.role == "admin") {
+  if (user.role !== "admin") {
     return (
       <div className="w-full h-screen flex flex-col justify-center items-center">
         <h1 className="text-7xl uppercase text-red-500 font-body font-bold tracking-widest">

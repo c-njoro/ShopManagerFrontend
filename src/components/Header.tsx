@@ -71,6 +71,16 @@ const Header = () => {
             </Link>
           )}
 
+          {user?.role !== "admin" && (
+            <Link
+              href="/manager"
+              className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all "
+            >
+              <ShoppingCart className="h-5 w-5 " />
+              <p>Management</p>
+            </Link>
+          )}
+
           <ThemeToggle />
 
           {isLoggedIn ? (
