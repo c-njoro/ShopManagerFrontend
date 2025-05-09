@@ -59,7 +59,7 @@ const ProductListComponent = () => {
       message!.classList.add("hide");
     } else {
       const filterMessage = `
-      Cannot find properties matching the provided filters:
+      Cannot find items matching the provided filters:
       ${categoryTerm ? `Category: "${categoryTerm}" ` : ""}
       ${nameTerm ? `Name: "${nameTerm}" ` : ""}
     `;

@@ -1,6 +1,14 @@
 "use client";
 import { useAuth } from "@/context/AuthContext";
-import { Home, LogIn, LogOut, ShoppingCart, User, X } from "lucide-react";
+import {
+  Home,
+  LogIn,
+  LogOut,
+  ShoppingCart,
+  User,
+  UserCog,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -37,9 +45,9 @@ const Header = () => {
       <div className=" flex md:flex-col flex-row justify-start items-start gap-8 p-4  h-full z-10">
         <div className="logo  w-full overflow-hidden  ">
           <img
-            src="/images/echodot.jpg"
+            src="/images/business-logo.png"
             alt="company logo"
-            className="md:w-full md:h-full w-50 h-10 object-cover rounded-lg shadow-md "
+            className="md:w-full md:h-full w-50 h-10 object-cover rounded-lg shadow-md dark:opacity-65"
           />
         </div>
         <div className="w-full links hidden md:flex md:flex-col flex-row gap-8 items-center font-body ">
@@ -71,13 +79,13 @@ const Header = () => {
             </Link>
           )}
 
-          {user?.role !== "admin" && (
+          {isLoggedIn && user?.role == "admin" && (
             <Link
               href="/manager"
               className="direction w-full h-max flex flex-row gap-4 items-center py-3 px-2 rounded-sm transition-all "
             >
-              <ShoppingCart className="h-5 w-5 " />
-              <p>Management</p>
+              <UserCog className="h-5 w-5 " />
+              <p>Manager</p>
             </Link>
           )}
 

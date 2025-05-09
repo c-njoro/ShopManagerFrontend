@@ -1,4 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
+import useOrders from "@/hooks/ordersHook";
 import useProducts from "@/hooks/productsHook";
 import { ProductInOrder } from "@/types/ProductInOrder";
 import axios from "axios";
@@ -20,6 +21,7 @@ const OrderComponent = () => {
     isError: productsError,
     refetch: refetchProducts,
   } = useProducts();
+  const { refetch: refetchOrders } = useOrders();
   const [orderProducts, setOrderProducts] = useState<ProductInOrder[]>([]);
   const [orderTotal, setOrderTotal] = useState(0);
 
@@ -173,6 +175,7 @@ const OrderComponent = () => {
       updateStock();
       console.log("Stock updated successfully");
       refetchProducts();
+      refetchOrders();
 
       setProductsConfirmed([]);
       setOrderIds([]);

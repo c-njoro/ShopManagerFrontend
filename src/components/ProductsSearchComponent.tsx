@@ -48,7 +48,7 @@ const ProductSearchComponent = () => {
       setProductsData(filtered);
     } else {
       const filterMessage = `
-      Cannot find properties matching the provided filters:
+      Cannot find items matching the provided filters:
       ${categoryTerm ? `Category: "${categoryTerm}" ` : ""}
       ${nameTerm ? `Name: "${nameTerm}" ` : ""}
     `;
@@ -149,17 +149,15 @@ const ProductSearchComponent = () => {
           </div>
         ) : (
           <div className="w-full h-full flex flex-col justify-center items-center min-h-[calc(50vh)]">
-            {searchedName.current?.value == null ||
-            searchedCategory.current?.value == null ||
-            searchedName.current?.value == "" ||
-            searchedCategory.current?.value == "" ? (
+            {searchedName.current?.value == null &&
+            searchedCategory.current?.value == null ? (
+              <p>Enter Search terms to check availability of products</p>
+            ) : searchedName.current?.value == "" &&
+              searchedCategory.current?.value == "" ? (
               <p>Enter Search terms to check availability of products</p>
             ) : (
-              <div className="w-full h-max p-2 flex flex-wor jstify-cnter items-center">
-                <p
-                  id="message"
-                  className="message text-sm text-red-500 tracking-wide"
-                >
+              <div>
+                <p id="message" className="message text-red-500 tracking-wide">
                   {message}
                 </p>
               </div>

@@ -1,7 +1,9 @@
+import OrdersViewComponent from "@/components/OrdersViewComponent";
+
 const ManagerPage = () => {
   return (
     <div className="w-full h-max">
-      <h1>Managers Page</h1>
+      <OrdersViewComponent />
     </div>
   );
 };

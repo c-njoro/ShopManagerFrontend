@@ -46,12 +46,12 @@ export default function ThemeToggle() {
     >
       {isDarkTheme ? (
         <div className="w-full h-max flex flex-row gap-4 items-center direction py-3 px-2 rounded-sm">
-          <Sun className="h-5 w-5 text-yellow-500" />
+          <Sun className="h-5 w-5" />
           <p className="hidden md:flex">Theme</p>
         </div>
       ) : (
         <div className="w-full h-max flex flex-row gap-4 items-center direction py-3 px-2 rounded-sm">
-          <Moon className="h-5 w-5 text-blue-500" />
+          <Moon className="h-5 w-5 " />
           <p className="hidden md:flex">Theme</p>
         </div>
       )}
